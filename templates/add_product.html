@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Yangi mahsulot qo‘shish{% endblock %}
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow-sm p-4">
+            <h4 class="mb-3 text-center">🛒 Yangi mahsulot qo‘shish</h4>
+            <form method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label">Mahsulot nomi</label>
+                    <input type="text" class="form-control" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Narxi (so‘m)</label>
+                    <input type="number" class="form-control" name="price" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Rasm</label>
+                    <input type="file" class="form-control" name="image">
+                </div>
+                <button class="btn btn-primary w-100">Qo‘shish</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

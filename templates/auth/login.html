@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Kirish</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <main>
+        <h2>Kirish</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                {% for category, msg in messages %}
+                    <li class="flash {{ category }}">{{ msg }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <form method="post" action="{{ url_for('auth_login') }}">
+            <label>Foydalanuvchi nomi:<br><input name="username"></label><br><br>
+            <label>Parol:<br><input type="password" name="password"></label><br><br>
+            <button type="submit">Kirish</button>
+        </form>
+        <p><a href="{{ url_for('auth_register') }}">Ro‘yxatdan o‘tish</a></p>
+    </main>
+</body>
+</html>

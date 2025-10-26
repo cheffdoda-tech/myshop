@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Mahsulotlar{% endblock %}
+{% block content %}
+
+<h2 class="text-center mb-4">📦 Mahsulotlar ro‘yxati</h2>
+
+<div class="row">
+    {% for p in products %}
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+            {% if p.image %}
+                <img src="{{ url_for('static', filename='uploads/' + p.image) }}" class="card-img-top" style="height:250px; object-fit:cover;">
+            {% else %}
+                <img src="https://via.placeholder.com/300" class="card-img-top" style="height:250px; object-fit:cover;">
+            {% endif %}
+            <div class="card-body text-center">
+                <h5 class="card-title">{{ p.name }}</h5>
+                <p class="card-text text-muted">{{ p.price }} so‘m</p>
+                <div class="d-flex justify-content-center gap-2">
+                    <a href="{{ url_for('edit_product', id=p.id) }}" class="btn btn-warning btn-sm">✏️ Tahrirlash</a>
+                    <a href="{{ url_for('delete_product', id=p.id) }}" class="btn btn-danger btn-sm">🗑️ O‘chirish</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if not products %}
+<p class="text-center text-muted">Mahsulotlar hali yo‘q. <a href="{{ url_for('add_product') }}">Qo‘shish uchun bosing</a>.</p>
+{% endif %}
+
+{% endblock %}

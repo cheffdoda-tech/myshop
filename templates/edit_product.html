@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Mahsulotni tahrirlash{% endblock %}
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow-sm p-4">
+            <h4 class="mb-3 text-center">✏️ Mahsulotni tahrirlash</h4>
+            <form method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label">Mahsulot nomi</label>
+                    <input type="text" class="form-control" name="name" value="{{ product.name }}" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Narxi (so‘m)</label>
+                    <input type="number" class="form-control" name="price" value="{{ product.price }}" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Rasm (hozirgi)</label><br>
+                    {% if product.image %}
+                        <img src="{{ url_for('static', filename='uploads/' + product.image) }}" width="100">
+                    {% else %}
+                        <img src="https://via.placeholder.com/100">
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Yangi rasm (ixtiyoriy)</label>
+                    <input type="file" class="form-control" name="image">
+                </div>
+                <button class="btn btn-success w-100">Saqlash</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

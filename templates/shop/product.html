@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ p.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header><h1><a href="{{ url_for('index') }}">🛒 Mening Onlayn Do‘konim</a></h1></header>
+    <main>
+        <article class="product-detail">
+            <img src="{{ p.image }}" alt="{{ p.title }}">
+            <h2>{{ p.title }}</h2>
+            <p class="price">{{ "{:,}".format(p.price) }} so'm</p>
+            <p>{{ p.description }}</p>
+            <p><a class="btn" href="{{ url_for('cart_add', product_id=p.id) }}">Savatga qo‘shish</a></p>
+        </article>
+    </main>
+    <footer><a href="{{ url_for('index') }}">Ortga</a></footer>
+</body>
+</html>

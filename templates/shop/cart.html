@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Savat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header><h1><a href="{{ url_for('index') }}">🛒 Mening Onlayn Do‘konim</a></h1></header>
+    <main>
+        <h2>Savat</h2>
+        {% if items %}
+            <table class="cart-table">
+                <tr><th>Mahsulot</th><th>Miqdor</th><th>Subtotal</th><th></th></tr>
+                {% for it in items %}
+                <tr>
+                    <td>{{ it.product.title }}</td>
+                    <td>{{ it.qty }}</td>
+                    <td>{{ "{:,}".format(it.subtotal) }} so'm</td>
+                    <td><a href="{{ url_for('cart_remove', product_id=it.product.id) }}">O‘chirish</a></td>
+                </tr>
+                {% endfor %}
+                <tr><td colspan="2"><strong>Jami:</strong></td><td colspan="2"><strong>{{ "{:,}".format(total) }} so'm</strong></td></tr>
+            </table>
+        {% else %}
+            <p>Savat bo‘sh.</p>
+        {% endif %}
+    </main>
+    <footer><a href="{{ url_for('index') }}">Ortga</a></footer>
+</body>
+</html>

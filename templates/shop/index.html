@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Mening Do‘konim</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1><a href="{{ url_for('index') }}">🛒 Mening Onlayn Do‘konim</a></h1>
+        <nav>
+            {% if current_user.is_authenticated %}
+                <span>Salom, {{ current_user.username }}</span> |
+                <a href="{{ url_for('auth_logout') }}">Chiqish</a> |
+            {% else %}
+                <a href="{{ url_for('auth_login') }}">Kirish</a> |
+                <a href="{{ url_for('auth_register') }}">Ro‘yxatdan o‘tish</a> |
+            {% endif %}
+            <a href="{{ url_for('view_cart') }}">Savat ({{ session.get('cart')|length if session.get('cart') else 0 }})</a>
+        </nav>
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                {% for category, msg in messages %}
+                    <li class="flash {{ category }}">{{ msg }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <section class="products">
+            {% for p in products %}
+                <article class="card">
+                    <img src="{{ p.image or url_for('static', filename='img/default.png') }}" alt="{{ p.title }}">
+                    <h3><a href="{{ url_for('product_view', product_id=p.id) }}">{{ p.title }}</a></h3>
+                    <p class="price">{{ "{:,}".format(p.price) }} so'm</p>
+                    <p>{{ p.description }}</p>
+                    <p><a class="btn" href="{{ url_for('cart_add', product_id=p.id) }}">Savatga qo‘shish</a></p>
+                </article>
+            {% else %}
+                <p>Mahsulotlar topilmadi. <a href="{{ url_for('admin_create_sample') }}">Sample yaratish</a></p>
+            {% endfor %}
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; {{ 2025 }} Mening Do‘konim</p>
+    </footer>
+</body>
+</html>
